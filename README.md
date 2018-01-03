@@ -1,8 +1,6 @@
-# Cexio::Websocket
+# CEX.io Websocket
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cexio/websocket`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem is a simple implementation for [CEX.io](https://cex.io/websocket-api) websocket API
 
 ## Installation
 
@@ -14,15 +12,53 @@ gem 'cexio-websocket'
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install cexio-websocket
+```
+$ gem install cexio-websocket
+```
+
+## Configuration
+
+Default configuration:
+
+`config/initializers/cex.rb`
+
+```ruby
+CEX::Websocket.setup do |config|
+  config.uri = 'wss://ws.cex.io/ws/'
+end
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+client = CEX::Websocket::Client.new
+client.listen_tickers do |message|
+  puts message
+end
+```
+
+This code will output:
+
+```json
+{"e":"connected"}
+{"e":"tick","data":{"symbol1":"ETH","symbol2":"USD","price":"997.0053","open24":"926.8021","volume":"10043.73349200"}}
+```
+
+## TODO
+
+Current version only implements `listen tickers` method.
+
+Next versions features:
+
+* Authentication
+* Signature generation
+* Implement private methods
 
 ## Development
 
@@ -32,7 +68,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cexio-websocket.
+Bug reports and pull requests are welcome on GitHub at [cexio-websocket](https://github.com/psyipm/cexio-websocket).
 
 ## License
 
